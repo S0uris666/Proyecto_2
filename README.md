@@ -64,4 +64,5 @@ Puedes consultar el repositorio original en el siguiente enlace: [Repositorio or
 Para organizar y estructurar adecuadamente el desarrollo del proyecto, se elaboró previamente un esquema escrito que permitió visualizar y definir las necesidades y funcionalidades requeridas en ambos enfoques: programación orientada a objetos (POO) y programación funcional (PF). Este esquema sirvió como guía para establecer los pasos a seguir durante la implementación y asegurar que se cumplieran los objetivos de cada paradigma.
 
 ![Esquema POO](Imagenes/Proyecto_2_2.jpg)
+
 ![Esquema PF](Imagenes/Proyecto_2_1.jpg)

@@ -7,7 +7,8 @@ class Pregunta {
   }
   // Método para votar por una opción específica
   vote(opcionesIndex) {
-    if (opcionesIndex >= 0 && opcionesIndex < this.opciones.length) { // evita errores de índice, por ejemplo, si el usuario ingresa un número fuera del rango de opciones
+    if (opcionesIndex >= 0 && opcionesIndex < this.opciones.length) {
+      // evita errores de índice, por ejemplo, si el usuario ingresa un número fuera del rango de opciones
       this.votes[opcionesIndex]++; // Suma 1 voto a la opción seleccionada
     } else {
       console.error("Índice de opción inválido."); // Control de flujo ante errores
@@ -34,7 +35,7 @@ class Encuesta {
       return;
     }
     const pregunta = new Pregunta(preguntaTexto, opciones); // Se crea un nuevo objeto Pregunta
-    this.preguntas.push(pregunta);// Se agrega a la lista de preguntas
+    this.preguntas.push(pregunta); // Se agrega a la lista de preguntas
   }
   finalizarEncuesta() {
     const total = this.preguntas.length;
@@ -101,11 +102,13 @@ function crearYVotarEncuesta() {
   // Votación
   let seguirVotando = true;
   while (seguirVotando) {
+    let listaPreguntas = encuesta.preguntas
+      .map((p, i) => `${i + 1}. ${p.texto}`)
+      .join("\n");
+
     let preguntaIndex =
       parseInt(
-        prompt(
-          `¿Sobre qué pregunta quieres votar? (1 a ${encuesta.preguntas.length})`
-        )
+        prompt(`¿Sobre qué pregunta quieres votar?\n${listaPreguntas}`)
       ) - 1;
 
     if (

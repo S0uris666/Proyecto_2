@@ -1,4 +1,4 @@
-// === Base de datos: array de encuestas ===
+// variable global para almacenar las encuestas
 const encuestas = [];
 
 function crearPregunta(texto, opciones) {
@@ -12,13 +12,12 @@ function crearPregunta(texto, opciones) {
 
   //Pide opciones de respuestas 
 function ingresarOpciones() {
-  let cantidad = parseInt(prompt("¿Cuántas opciones deseas ingresar? \n (mínimo 2, dejar en blanco para 3)"));
+  let cantidad = parseInt(prompt("¿Cuántas opciones deseas ingresar?\n(mínimo 2, dejar en blanco para 3)"));
 
   if (isNaN(cantidad) || cantidad < 2) {
     cantidad = 3;
     alert("Se usarán 3 opciones por defecto.");
   }
-
   const opciones=[];
   for (let i = 0; i < cantidad; i++) {
     const opcion = prompt(`Ingresa la opción ${i + 1}:`);
@@ -33,7 +32,7 @@ function ingresarOpciones() {
     for (let i = 0; i < 8; i++) {
       const texto = prompt(`Escribe el texto de la pregunta ${i + 1}:`);
       const opciones = ingresarOpciones();
-      const pregunta = crearPregunta(texto, opciones); 
+      const pregunta = crearPregunta(texto, opciones);
       if (pregunta) preguntasDATA.push(pregunta);
     }
   
@@ -62,7 +61,6 @@ function votarPregunta(pregunta) {
     votos[respuesta]++
   }else {
     alert("Opción inválida.");
-
   }
 }
 //Votar encuesta
@@ -73,19 +71,21 @@ function votarEnEncuesta(encuesta) {
   let seguirVotando = true;
 
   while (seguirVotando) {
-    const preguntaIndex = parseInt(prompt(`¿Sobre qué pregunta deseas votar? (1 a ${preguntas.length})`)) - 1;
+    // Generar listado de preguntas con sus textos
+    let listadoPreguntas = preguntas.map(([texto], i) => `${i + 1}. ${texto}`).join("\n");
+    const preguntaIndex = parseInt(prompt(
+      `¿Sobre qué pregunta deseas votar?\n${listadoPreguntas}\n\nIngresa el número de la pregunta:`)) - 1;
 
-    if (preguntaIndex >=0 &&  preguntaIndex < preguntas.length) {
+    if (preguntaIndex >= 0 && preguntaIndex < preguntas.length) {
       votarPregunta(preguntas[preguntaIndex]);
-    }else{
+    } else {
       alert("Número de pregunta inválido.");
       continue;
     }
-    seguirVotando = confirm("¿Deseas votar en otra pregunta?"); // Se redefine la variable seguirVotando
 
-    if (!seguirVotando) break; 
-    }
+    seguirVotando = confirm("¿Deseas votar en otra pregunta?");
   }
+}
 //Muestra los resultados de la encuesta
 function mostrarResultados(encuesta) {
   const [titulo, preguntas] = encuesta;
